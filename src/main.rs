@@ -14,12 +14,14 @@ struct Unit;
 struct Pair(i32, f32);
 
 // A struct with two fields
+#[derive(Debug)]
 struct Point {
     x: f32,
     y: f32,
 }
 
 // Structs can be reused as fields of another struct
+#[derive(Debug)]
 struct Rectangle {
     // A rectangle can be specified by where the top left and bottom right
     // corners are in space.
@@ -65,6 +67,15 @@ fn main() {
         bottom_right: bottom_right,
     };
 
+    let graphable_rectangle = Rectangle {
+        top_left: Point { x: 5.1, y: 16.8 },
+        bottom_right: Point { x: 10.2, y: 1.4 },
+    };
+    let area_graphable_rect = rect_area(&graphable_rectangle);
+
+    println!("{:?}", graphable_rectangle);
+    println!("The area of the rectangle is {}", area_graphable_rect);
+
     // Instantiate a unit struct
     let _unit = Unit;
 
@@ -79,3 +90,29 @@ fn main() {
 
     println!("pair contains {:?} and {:?}", integer, decimal);
 }
+
+fn rect_area(rect: &Rectangle) -> f32 {
+    // println!("{:#?}", rect);
+
+    // width will be right x minus left x
+    let width = rect.bottom_right.x - rect.top_left.x;
+
+    // length (height) will be top y minus bottom y
+    let length = rect.top_left.y - rect.bottom_right.y;
+
+    // return length * width
+    length * width
+}
+
+/*
+Rectangle {
+    top_left: Point {
+        x: 5.1,
+        y: 16.8,
+    },
+    bottom_right: Point {
+        x: 10.2,
+        y: 1.4,
+    },
+}
+ */
