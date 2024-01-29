@@ -94,11 +94,12 @@ fn main() {
 fn rect_area(rect: &Rectangle) -> f32 {
     // println!("{:#?}", rect);
 
-    // width will be right x minus left x
-    let width = rect.bottom_right.x - rect.top_left.x;
+    // x goes left to right, y goes bottom to top
+    let Point { x: left_side, y: top_side } = rect.top_left;
+    let Point { x: right_side, y: bottom_side } = rect.bottom_right;
 
-    // length (height) will be top y minus bottom y
-    let length = rect.top_left.y - rect.bottom_right.y;
+    let width = right_side - left_side;
+    let length = top_side - bottom_side;
 
     // return length * width
     length * width
